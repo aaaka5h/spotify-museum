@@ -1,25 +1,28 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import Image from 'next/image';
+import { ItemInfo } from './item-info';
 
-export const TopItem = (item) => {
+export const TopItem = (item, idx) => {
   let [isOpen, setIsOpen] = useState(false);
+  const imgSrc = item.album.images[1].url;
 
   return (
-    <div className="my-2">
-      <div className="relative inset-0 justify-center">
+    <>
+      <div className="relative p-4 inset-0 justify-center overflow-hidden">
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          className="rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75"
+          className="flex flex-col relative items-center rounded-md text-black p-4 gap-4 text-sm font-medium hover:font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-opacity-75"
         >
           <Image
-            src={item.item.album.images[0].url}
-            alt={item.item.name}
-            width={item.item.album.images[0].width}
-            height={item.item.album.images[0].height}
+            className="rounded-xl grayscale hover:grayscale-0 hover:transition-all"
+            src={imgSrc}
+            alt={item.name}
+            width={item.album.images[1].width}
+            height={item.album.images[1].height}
           ></Image>
-          {item.item.name}
+          {item.name} {item.explicit ? '🅴' : ''}
         </button>
       </div>
 
@@ -57,11 +60,9 @@ export const TopItem = (item) => {
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
-                    Payment successful
+                    {item.name}
                   </Dialog.Title>
-                  <div className="mt-2">
-                    <p className="text-sm text-gray-500">{item.item.id}</p>
-                  </div>
+                  <ItemInfo {...item} index={item.idx} />
 
                   <div className="mt-4">
                     <button
@@ -78,6 +79,6 @@ export const TopItem = (item) => {
           </div>
         </Dialog>
       </Transition>
-    </div>
+    </>
   );
 };

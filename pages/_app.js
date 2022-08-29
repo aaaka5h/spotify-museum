@@ -1,7 +1,7 @@
 import '../styles/index.css';
-import { useState, useEffect } from 'react';
-import { TopItemDisplay } from '../src/components/top-item-display';
-function MyApp({ Component, pageProps }) {
+import { useEffect } from 'react';
+import { TopTracksDisplay } from '../src/components/top-tracks-display';
+function MyApp() {
   const CLIENT_ID = 'b9a2303ef14e4e718e4cf49e46e6f6dd';
   const AUTH_ENDPOINT = 'https://accounts.spotify.com/authorize';
   const REDIRECT_URI = 'http://localhost:3000';
@@ -41,10 +41,10 @@ function MyApp({ Component, pageProps }) {
 
   return (
     <div className="flex flex-col w-screen h-screen justify-center items-center">
-      <TopItemDisplay item="tracks" />
+      <TopTracksDisplay item="tracks" />
       <a
-        className="my-4 flex w-fit text-sm p-2 font-light border border-black rounded-xl 
-        hover:bg-black hover:text-green-500 hover:scale-110 hover:font-bold hover:ring-green-500 hover:ring-2"
+        className="my-4 flex w-fit text-sm p-2 font-light border border-black rounded-xl transition-all
+         hover:scale-105 hover:bg-gray-400 focus:ring-black focus:ring-2"
         href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${SCOPES.join(
           '%20'
         )}&response_type=${RESPONE_TYPE}`}
