@@ -1,14 +1,16 @@
 import { getAvgPopularity } from '../helpers';
-import { useState } from 'react';
+import styles from './basic-o-meter.module.css';
 
 export const BasicOMeter = (items) => {
-  console.log(items);
-  const level = getAvgPopularity(items);
-  const [progress, setProgress] = useState('0%');
+  const level = getAvgPopularity(items) | 0;
+
   return (
-    <div class="w-full bg-gray-200 rounded-full dark:bg-gray-700">
-      <div className="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full">
-        {level}
+    <div className="flex flex-col justify-center items-center w-full">
+      <span className="font-semibold">How Unique is your music taste?</span>
+      <div className={styles.meter}>
+        <span style={{ width: `${level}%` }}>
+          <span className={styles.progress}></span>
+        </span>
       </div>
     </div>
   );

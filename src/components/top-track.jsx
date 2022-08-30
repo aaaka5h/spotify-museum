@@ -3,26 +3,28 @@ import { Fragment, useState } from 'react';
 import Image from 'next/image';
 import { ItemInfo } from './item-info';
 
-export const TopItem = (item, idx) => {
+export const TopItem = (item) => {
   let [isOpen, setIsOpen] = useState(false);
   const imgSrc = item.album.images[1].url;
 
   return (
     <>
-      <div className="relative p-4 inset-0 justify-center overflow-hidden">
+      <div className="flex justify-center overflow-hidden">
         <button
           type="button"
           onClick={() => setIsOpen(true)}
-          className="flex flex-col relative items-center rounded-md text-black p-4 gap-4 text-sm font-medium hover:font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-opacity-75"
+          className="flex flex-col relative items-center rounded-md text-black text-sm font-medium hover:font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-opacity-75"
         >
           <Image
             className="rounded-xl grayscale hover:grayscale-0 hover:transition-all"
             src={imgSrc}
             alt={item.name}
-            width={item.album.images[1].width}
-            height={item.album.images[1].height}
+            width={125}
+            height={125}
           ></Image>
-          {item.name} {item.explicit ? '🅴' : ''}
+          <span className="max-w-fit">
+            {item.name} {item.explicit ? '🅴' : ''}
+          </span>
         </button>
       </div>
 

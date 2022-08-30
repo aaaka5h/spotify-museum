@@ -36,21 +36,27 @@ export const TopTracksDisplay = (item = 'tracks', className) => {
 
   return (
     <>
-      {data?.items && <BasicOMeter {...data.items} />}
-      <div className={classNames(className, 'grid grid-cols-5 h-screen')}>
-        {data.items ? (
+      <div
+        className={classNames(
+          className,
+          'mt-4 grid grid-cols-4 md:grid-cols-5 h-screen w-screen'
+        )}
+      >
+        {data.items &&
           data?.items.map((item, idx) => {
             return <TopItem key={item.id} idx={idx + 1} {...item}></TopItem>;
-          })
-        ) : (
-          <button
-            className="cols col-span-4"
-            onClick={() => getTopTracks(item)}
-          >
-            {BUTTON_TEXT}
-          </button>
-        )}
+          })}
       </div>
+      {data.items ? (
+        <BasicOMeter {...data.items} />
+      ) : (
+        <button
+          className="flex justify-center"
+          onClick={() => getTopTracks(item)}
+        >
+          {BUTTON_TEXT}
+        </button>
+      )}
     </>
   );
 };

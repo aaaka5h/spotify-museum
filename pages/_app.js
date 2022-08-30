@@ -40,17 +40,19 @@ function MyApp() {
   });
 
   return (
-    <div className="flex flex-col w-screen h-screen justify-center items-center">
-      <TopTracksDisplay item="tracks" />
-      <a
-        className="my-4 flex w-fit text-sm p-2 font-light border border-black rounded-xl transition-all
-         hover:scale-105 hover:bg-gray-400 focus:ring-black focus:ring-2"
-        href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${SCOPES.join(
-          '%20'
-        )}&response_type=${RESPONE_TYPE}`}
-      >
-        Login to Spotify
-      </a>
+    <div className="flex justify-center mx-40">
+      <div className="flex flex-col w-screen justify-center items-center">
+        <TopTracksDisplay item="tracks" />
+        <a
+          className="my-4 flex w-fit text-sm p-2 font-light border border-black rounded-xl transition-all
+          hover:text-white hover:scale-105 hover:bg-black focus:ring-black focus:ring-2"
+          href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${SCOPES.join(
+            '%20'
+          )}&response_type=${RESPONE_TYPE}`}
+        >
+          Login to Spotify
+        </a>
+      </div>
     </div>
   );
 }
