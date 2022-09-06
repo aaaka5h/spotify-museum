@@ -45,7 +45,7 @@ export const TopTracksDisplay = () => {
           hover:text-white hover:scale-105 hover:bg-black focus:ring-black focus:ring-2"
             onClick={() => getTopTracks()}
           >
-            'Generate museum!'
+            Generate museum!
           </button>
           <span className="text-sm my-2 mx-4 justify-center text-center">
             Login to Spotify to generate your museum! If you are unable to
