@@ -4,12 +4,13 @@ import { useState, useEffect } from 'react';
 import { BasicOMeter } from './basic-o-meter';
 import { TopItem } from './top-track';
 
-const SPOTIFY_ENDPOINT = 'https://api.spotify.com/v1/me/top';
+const SPOTIFY_ENDPOINT = 'https://api.spotify.com/v1/me/top/tracks';
 const BUTTON_TEXT = 'Generate grid!';
 
-export const TopTracksDisplay = (item = 'tracks', className) => {
+export const TopTracksDisplay = () => {
   const [token, setToken] = useState('');
   const [data, setData] = useState({});
+  const [gridStyles, setGridStyles] = useState('');
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
@@ -20,14 +21,14 @@ export const TopTracksDisplay = (item = 'tracks', className) => {
 
   const getTopTracks = async () => {
     await axios
-      .get(`${SPOTIFY_ENDPOINT}/tracks`, {
+      .get(SPOTIFY_ENDPOINT, {
         headers: {
           Authorization: 'Bearer ' + token,
         },
       })
       .then((resp) => {
-        console.log(resp.data);
         setData(resp.data);
+        setGridStyles('w-screen');
       })
       .catch((err) => {
         console.log('Error:' + err);
@@ -36,10 +37,20 @@ export const TopTracksDisplay = (item = 'tracks', className) => {
 
   return (
     <>
+      {data.items ? (
+        <BasicOMeter {...data.items} />
+      ) : (
+        <button
+          className="mt-4 flex justify-center"
+          onClick={() => getTopTracks()}
+        >
+          {BUTTON_TEXT}
+        </button>
+      )}
       <div
         className={classNames(
-          className,
-          'mt-4 grid grid-cols-4 md:grid-cols-5 h-screen w-screen'
+          gridStyles,
+          'mt-4 grid grid-cols-2 gap-y-4 sm:grid-cols-4 md:grid-cols-5'
         )}
       >
         {data.items &&
@@ -47,16 +58,6 @@ export const TopTracksDisplay = (item = 'tracks', className) => {
             return <TopItem key={item.id} idx={idx + 1} {...item}></TopItem>;
           })}
       </div>
-      {data.items ? (
-        <BasicOMeter {...data.items} />
-      ) : (
-        <button
-          className="flex justify-center"
-          onClick={() => getTopTracks(item)}
-        >
-          {BUTTON_TEXT}
-        </button>
-      )}
     </>
   );
 };

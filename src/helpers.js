@@ -65,5 +65,5 @@ export const getAvgPopularity = (songs) => {
   let acc = 0;
   const songKeys = Object.keys(songs);
   songKeys.forEach((i) => (acc += songs[i].popularity));
-  return Math.floor(acc / songKeys.length);
+  return 100 - Math.floor(acc / songKeys.length);
 };

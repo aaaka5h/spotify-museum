@@ -2,7 +2,8 @@ import classNames from 'classnames';
 import { numToOrdinal, formatSongLength, colorizeNum } from '../helpers';
 
 export const ItemInfo = (item) => {
-  const popularityProps = colorizeNum(item.popularity);
+  const popularityColor = colorizeNum(item.popularity)[0];
+  const popularityText = colorizeNum(item.popularity)[1];
 
   return (
     <div className="text-sm text-gray-500 font-semibold">
@@ -20,8 +21,8 @@ export const ItemInfo = (item) => {
       <br></br>
       <p>
         Popularity ranking:{' '}
-        <span className={classNames(popularityProps[0], 'font-normal')}>
-          {popularityProps[1]}
+        <span className={classNames(popularityColor, 'font-normal')}>
+          {popularityText}
         </span>
       </p>
       <p>
