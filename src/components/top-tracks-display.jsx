@@ -31,7 +31,8 @@ export const TopTracksDisplay = () => {
         setGridStyles('w-screen');
       })
       .catch((err) => {
-        console.log('Error:' + err);
+        console.log('Error: ' + err);
+        return <p>Test error message</p>;
       });
   };
 
