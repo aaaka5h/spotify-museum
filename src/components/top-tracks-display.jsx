@@ -5,11 +5,12 @@ import { BasicOMeter } from './basic-o-meter';
 import { TopItem } from './top-track';
 
 const SPOTIFY_ENDPOINT = 'https://api.spotify.com/v1/me/top/tracks';
-const BUTTON_TEXT = 'Generate grid!';
+const BUTTON_TEXT = 'Click to generate grid!';
 
 export const TopTracksDisplay = () => {
   const [token, setToken] = useState('');
   const [data, setData] = useState({});
+  const [error, setError] = useState(false);
   const [gridStyles, setGridStyles] = useState('');
 
   useEffect(() => {
@@ -31,8 +32,8 @@ export const TopTracksDisplay = () => {
         setGridStyles('w-screen');
       })
       .catch((err) => {
-        console.log('Error: ' + err);
-        return <p>Test error message</p>;
+        console.log('TESTTSTSTS: ' + err);
+        setError(true);
       });
   };
 
@@ -45,7 +46,7 @@ export const TopTracksDisplay = () => {
           className="mt-4 flex justify-center"
           onClick={() => getTopTracks()}
         >
-          {BUTTON_TEXT}
+          {error ? 'Please login again' : BUTTON_TEXT}
         </button>
       )}
       <div
