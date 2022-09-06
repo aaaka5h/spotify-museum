@@ -5,7 +5,7 @@ import { TopTracksDisplay } from '../src/components/top-tracks-display';
 function MyApp() {
   const CLIENT_ID = 'b9a2303ef14e4e718e4cf49e46e6f6dd';
   const AUTH_ENDPOINT = 'https://accounts.spotify.com/authorize';
-  const REDIRECT_URI = 'https://spotify-museum.vercel.app/';
+  const REDIRECT_URI = 'http://localhost:3000';
   const RESPONE_TYPE = 'token';
   const SCOPES = [
     'user-read-email',
