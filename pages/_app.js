@@ -50,7 +50,7 @@ function MyApp() {
           '%20'
         )}&response_type=${RESPONE_TYPE}`}
       >
-        Login to Spotify
+        Connect to Spotify
       </a>
     </div>
   );

@@ -9,7 +9,7 @@ export const BasicOMeter = (items) => {
   return (
     <div className="mt-4 flex flex-col justify-center items-center w-full">
       <span className="mb-1 font-semibold">
-        How Unique is your music taste?
+        How unique is your music taste?
       </span>
       <div className={classNames(styles.meter, 'flex flex-row space-x-2')}>
         <span style={{ width: `${level}%` }}>

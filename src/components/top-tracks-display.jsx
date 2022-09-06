@@ -5,7 +5,6 @@ import { BasicOMeter } from './basic-o-meter';
 import { TopItem } from './top-track';
 
 const SPOTIFY_ENDPOINT = 'https://api.spotify.com/v1/me/top/tracks';
-const BUTTON_TEXT = 'Generate grid!';
 
 export const TopTracksDisplay = () => {
   const [token, setToken] = useState('');
@@ -40,12 +39,20 @@ export const TopTracksDisplay = () => {
       {data.items ? (
         <BasicOMeter {...data.items} />
       ) : (
-        <button
-          className="mt-4 flex justify-center"
-          onClick={() => getTopTracks()}
-        >
-          {BUTTON_TEXT}
-        </button>
+        <>
+          <button
+            className="mt-4 p-2 flex justify-center text-xs border border-black rounded-xl transition-all
+          hover:text-white hover:scale-105 hover:bg-black focus:ring-black focus:ring-2"
+            onClick={() => getTopTracks()}
+          >
+            'Generate museum!'
+          </button>
+          <span className="text-sm my-2 mx-4 justify-center text-center">
+            Login to Spotify to generate your museum! If you are unable to
+            generate museum after login, please try reconnecting to Spotify and
+            generating again!
+          </span>
+        </>
       )}
       <div
         className={classNames(
