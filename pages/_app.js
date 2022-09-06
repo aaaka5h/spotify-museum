@@ -1,6 +1,7 @@
 import '../styles/index.css';
 import { useEffect } from 'react';
 import { TopTracksDisplay } from '../src/components/top-tracks-display';
+
 function MyApp() {
   const CLIENT_ID = 'b9a2303ef14e4e718e4cf49e46e6f6dd';
   const AUTH_ENDPOINT = 'https://accounts.spotify.com/authorize';
@@ -37,11 +38,11 @@ function MyApp() {
       localStorage.setItem('expiresIn', expires_in);
       localStorage.setItem('tokenType', token_type);
     }
-  });
+  }, []);
 
   return (
     <div className="flex flex-col w-screen align-middle justify-center items-center">
-      <TopTracksDisplay item="tracks" />
+      <TopTracksDisplay />
       <a
         className="mt-2 md:mb-4 md:mt-0 flex w-fit text-sm p-2 font-light border border-black rounded-xl transition-all
           hover:text-white hover:scale-105 hover:bg-black focus:ring-black focus:ring-2"

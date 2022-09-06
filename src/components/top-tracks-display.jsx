@@ -4,10 +4,10 @@ import { useState, useEffect } from 'react';
 import { BasicOMeter } from './basic-o-meter';
 import { TopItem } from './top-track';
 
-const SPOTIFY_ENDPOINT = 'https://api.spotify.com/v1/me/top';
+const SPOTIFY_ENDPOINT = 'https://api.spotify.com/v1/me/top/tracks';
 const BUTTON_TEXT = 'Generate grid!';
 
-export const TopTracksDisplay = (item = 'tracks', className) => {
+export const TopTracksDisplay = () => {
   const [token, setToken] = useState('');
   const [data, setData] = useState({});
   const [gridStyles, setGridStyles] = useState('');
@@ -21,7 +21,7 @@ export const TopTracksDisplay = (item = 'tracks', className) => {
 
   const getTopTracks = async () => {
     await axios
-      .get(`${SPOTIFY_ENDPOINT}/tracks`, {
+      .get(SPOTIFY_ENDPOINT, {
         headers: {
           Authorization: 'Bearer ' + token,
         },
@@ -41,8 +41,8 @@ export const TopTracksDisplay = (item = 'tracks', className) => {
         <BasicOMeter {...data.items} />
       ) : (
         <button
-          className="flex justify-center"
-          onClick={() => getTopTracks(item)}
+          className="mt-4 flex justify-center"
+          onClick={() => getTopTracks()}
         >
           {BUTTON_TEXT}
         </button>
@@ -50,7 +50,6 @@ export const TopTracksDisplay = (item = 'tracks', className) => {
       <div
         className={classNames(
           gridStyles,
-          className,
           'mt-4 grid grid-cols-2 gap-y-4 sm:grid-cols-4 md:grid-cols-5'
         )}
       >

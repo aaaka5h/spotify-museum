@@ -1,9 +1,10 @@
-import { getAvgPopularity } from '../helpers';
+import { colorizeNum, getAvgPopularity } from '../helpers';
 import styles from './basic-o-meter.module.css';
 import classNames from 'classnames';
 
 export const BasicOMeter = (items) => {
   const level = getAvgPopularity(items) | 0;
+  const [levelColor] = colorizeNum(level);
 
   return (
     <div className="mt-4 flex flex-col justify-center items-center w-full">
@@ -14,8 +15,12 @@ export const BasicOMeter = (items) => {
         <span style={{ width: `${level}%` }}>
           <span className={styles.progress}></span>
         </span>
-        <span className="text-sm font-light animate-fadeIn">{level}</span>
       </div>
+      <span
+        className={classNames(levelColor, 'text-sm font-light animate-fadeIn')}
+      >
+        {level}
+      </span>
     </div>
   );
 };
