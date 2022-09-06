@@ -1,6 +1,7 @@
 import '../styles/index.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { TopTracksDisplay } from '../src/components/top-tracks-display';
+import axios from 'axios';
 
 function MyApp() {
   const CLIENT_ID = 'b9a2303ef14e4e718e4cf49e46e6f6dd';
@@ -17,6 +18,18 @@ function MyApp() {
     'user-read-playback-state',
     'user-modify-playback-state',
   ];
+  const SPOTIFY_ENDPOINT = 'https://api.spotify.com/v1/me/top/tracks';
+
+  const [token, setToken] = useState('');
+  const [data, setData] = useState({});
+  const [gridStyles, setGridStyles] = useState('');
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken) {
+      setToken(accessToken);
+    }
+  }, []);
 
   const getFromAuth = (hash) => {
     const paramsInURL = hash.substring(1).split('&');
@@ -41,11 +54,28 @@ function MyApp() {
     }
   }, []);
 
+  const getTopTracks = async () => {
+    console.log('Got tracks');
+    await axios
+      .get(SPOTIFY_ENDPOINT, {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      })
+      .then((resp) => {
+        setData(resp.data);
+        setGridStyles('w-screen');
+      })
+      .catch((err) => {
+        console.log('Error: ' + err);
+      });
+  };
+
   return (
-    <div className="flex flex-col w-screen align-middle justify-center items-center">
-      <TopTracksDisplay />
+    <div className="flex flex-col w-screen justify-center items-center">
+      {data.items && <TopTracksDisplay {...data} />}
       <a
-        className="mt-2 md:mb-4 md:mt-0 flex w-fit text-sm p-2 font-light border border-black rounded-xl transition-all
+        className="mt-4 flex w-fit text-sm p-2 font-light border border-black rounded-xl transition-all
           hover:text-white hover:scale-105 hover:bg-black focus:ring-black focus:ring-2"
         href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${SCOPES.join(
           '%20'
@@ -53,6 +83,14 @@ function MyApp() {
       >
         Login to Spotify
       </a>
+      {data && (
+        <button
+          className="mt-4 flex justify-center"
+          onClick={() => getTopTracks()}
+        >
+          Click to generate grid!
+        </button>
+      )}
     </div>
   );
 }
